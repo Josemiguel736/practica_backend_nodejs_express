@@ -8,6 +8,7 @@ import * as sessionManager from "./lib/sessionManager.js"
 //controladores
 import * as homeController from "./controllers/homeController.js"
 import * as loginContoller from "./controllers/loginController.js"
+import * as productsController from "./controllers/productsController.js"
 
 //conexion con mongoose
 await connectMongoose()
@@ -34,7 +35,11 @@ app.get('/', homeController.index)
 app.get('/login', loginContoller.index)
 app.post('/login', loginContoller.postLogin)
 
-//capturador errores
+
+//Paginas privadas 
+app.get("/logout",sessionManager.isLoggedIn,loginContoller.logout)
+app.get("/new/product",sessionManager.isLoggedIn,productsController.index)
+app.post("/new/product",sessionManager.isLoggedIn,productsController.postNewProduct)
 
 
 

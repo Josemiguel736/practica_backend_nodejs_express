@@ -20,11 +20,11 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/agents/new">New Agent</a>
+            <a class="nav-link" href="/new/product">New Product</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <% if (session.userId) { %>
+          <% if (session.userID) { %>
             <a href="/logout" class="btn btn-outline-success" type="submit">Logout</a>
           <% } else { %>
             <a href="/login" class="btn btn-outline-success" type="submit">Login</a>

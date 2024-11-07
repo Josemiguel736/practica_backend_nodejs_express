@@ -31,3 +31,10 @@ export async function postLogin(req,res,next){
         next(error) //si hay un error llamo a next para que se ocupe
     }
 }
+
+export function logout(req,res,next){
+    req.session.regenerate(err=>{
+        if(err)return next(err)
+        res.redirect("/")
+    })
+}
