@@ -8,11 +8,12 @@ export function index(req,res,next){
 
 export async function postLogin(req,res,next){
     try{
-        //busco en la base de datos el usuario en cuestión
-       
+        //recuperamos email y password del body      
         const {email,password} = req.body
-        
-        const user = await User.findOne({email})
+        //normalizamos el email
+        const emailNormal = email.toLowerCase()
+        //busco en la base de datos el usuario en cuestión
+        const user = await User.findOne({email:emailNormal})
         
         console.log(user)
         //si email o contraseña son incorrectos 

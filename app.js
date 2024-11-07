@@ -9,6 +9,7 @@ import * as sessionManager from "./lib/sessionManager.js"
 import * as homeController from "./controllers/homeController.js"
 import * as loginContoller from "./controllers/loginController.js"
 import * as productsController from "./controllers/productsController.js"
+import getImage from "./controllers/imageCrontroller.js"
 
 //conexion con mongoose
 await connectMongoose()
@@ -37,6 +38,7 @@ app.post('/login', loginContoller.postLogin)
 
 
 //Paginas privadas 
+app.get('/image/:id', getImage)
 app.get("/logout",sessionManager.isLoggedIn,loginContoller.logout)
 app.get("/new/product",sessionManager.isLoggedIn,productsController.index)
 app.post("/new/product",sessionManager.isLoggedIn,productsController.imageUpload,productsController.postNewProduct)
