@@ -1,0 +1,31 @@
+.container{display: flex;
+            align-items: center;
+            flex-direction: column;
+           
+           }
+
+
+.filter{    margin-bottom: 20px;
+            
+           
+           }
+.isflex{
+    
+    position: relative;
+    background-color: rgba(245, 245, 220, 0.438);
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 50px;
+    color: rgb(0, 0, 0);
+}
+
+
+.img{
+    max-width: 300px;
+}
+body{background-color: rgb(204, 204, 204);
+    }
