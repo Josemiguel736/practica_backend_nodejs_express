@@ -4,6 +4,19 @@
 
   <p>User ID: <%= session.userID %></p>
 
+  <% if(session.userID){ %>
+    <p><% products.forEach(producto=>{%></p>
+    <div>
+    <p>Nombre: <%=producto.name %></p>
+    <p>Precio: <%=producto.price %></p>
+    <p>tags: <%=producto.tags %></p>
+    </div>        
+    <%})}%>
+  
+
+
+
+
 
   
 
