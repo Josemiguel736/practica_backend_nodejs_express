@@ -1,5 +1,7 @@
 import connectMongoose from "./lib/connectMongoose.js";
 import readline from "node:readline"
+import fs from "node:fs"
+import path from "node:path";
 import User from "./models/User.js"
 import Product from "./models/Product.js"
 
@@ -42,20 +44,57 @@ async function initProducts() {
         ])
 
 
+
+    //rutas de las imagenes
+    const __dirname = (path.dirname(new URL(import.meta.url).pathname)).substring(3)
+    
+    const imageCupra = path.join(__dirname, "./img/initDbImages/seat-leon-cupra.jpg")
+    const imageBufferCupra = fs.readFileSync(imageCupra)
+
+    const imageVoge = path.join(__dirname, "./img/initDbImages/voge.jpg")
+    const imageBufferVoge = fs.readFileSync(imageVoge)
+
+    const imageMsi = path.join(__dirname, "./img/initDbImages/msi.jpg")
+    const imageBufferMsi = fs.readFileSync(imageMsi)
+
+    const imageWay = path.join(__dirname, "./img/initDbImages/cesta-navidad.jpg")
+    const imageBufferWay = fs.readFileSync(imageWay)
+
     //Creamos los nuevos productos
     const insertResult = await Product.insertMany([
-        {   name:"Seat Cupra",
+        {   name:"Seat Leon Cupra",
             owner:user._id,
-            price:1500,
-            image:"Imagen de un cupra",
+            price:15000,
+            image:{
+                data: imageBufferCupra,
+                contentType: "image/jpeg"},
             tags:["motor","lifestyle"]
         },
         {   name:"Voge 125R",
             owner:user._id,
-            price:1500,
-            image:"Imagen de una moto",
+            price:3000,
+            image:{
+                data: imageBufferVoge,
+                contentType: "image/jpeg"},
             tags:["motor","lifestyle","Motocicletas"]
+        },
+        {   name:"Cesta de navidad ",
+            owner:admin._id,
+            price:150,
+            image:{
+                data: imageBufferWay,
+                contentType: "image/jpeg"},
+            tags:["lifestyle","Comida"]
+        },
+        {   name:"Ordenador MSI",
+            owner:admin._id,
+            price:1200,
+            image:{
+                data: imageBufferMsi,
+                contentType: "image/jpeg"},
+            tags:["pc","portatil"]
         }
+
 
     ])
     console.log(`insert ${insertResult.length} Products`)

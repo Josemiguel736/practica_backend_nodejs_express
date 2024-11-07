@@ -4,7 +4,7 @@
 
   <h1>NEW PRODUCT</h1>
 
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
 
     <div class="mb-3">
       
@@ -19,14 +19,16 @@
     </div>
 
     <div class="mb-3">
-      <label for="img" class="form-label">Imágen</label>
-      <input type="text" name="img" value="" class="form-control" id="img" required>
+      <label for="image">Sube una imagen:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
     </div>
 
     <div class="mb-3">
       <label for="tags" class="form-label">Tags</label>
       <input type="text" name="tags" value="" class="form-control" id="tags" required>
     </div>
+
+    
 
     <button type="submit" class="btn btn-primary">Submit</button>
    

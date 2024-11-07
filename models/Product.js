@@ -6,7 +6,10 @@ const productSchema = new Schema({
     name:String,
     owner:{ref:"user",type:mongoose.Schema.Types.ObjectId},
     price:Number,
-    image:String,
+    image:{
+        data: Buffer,         
+        contentType: String   
+    },
     tags:[String]
 })
 

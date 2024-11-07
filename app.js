@@ -39,7 +39,7 @@ app.post('/login', loginContoller.postLogin)
 //Paginas privadas 
 app.get("/logout",sessionManager.isLoggedIn,loginContoller.logout)
 app.get("/new/product",sessionManager.isLoggedIn,productsController.index)
-app.post("/new/product",sessionManager.isLoggedIn,productsController.postNewProduct)
+app.post("/new/product",sessionManager.isLoggedIn,productsController.imageUpload,productsController.postNewProduct)
 
 
 
