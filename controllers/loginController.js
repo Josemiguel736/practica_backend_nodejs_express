@@ -25,8 +25,9 @@ export async function postLogin(req,res,next){
         }
         //Asigno su id de usuario al req.session para poder usarlo más adelante
         req.session.userID = user._id
+        req.session.userName = user.userName
         //redirijo al home
-        console.log(user._id)
+        console.log(user.userName)
         res.redirect("/")
     } catch(error){
         next(error) //si hay un error llamo a next para que se ocupe

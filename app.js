@@ -10,6 +10,7 @@ import * as homeController from "./controllers/homeController.js"
 import * as loginContoller from "./controllers/loginController.js"
 import * as productsController from "./controllers/productsController.js"
 import getImage from "./controllers/imageCrontroller.js"
+import * as filterController from "./controllers/filterController.js"
 
 //conexion con mongoose
 await connectMongoose()
@@ -32,7 +33,7 @@ app.locals.appName ="Node Pop"
 
 app.use(sessionManager.middelwareSession,sessionManager.userSessionInViews)
 //Rutas PUBLICAS de la aplicacion 
-app.get('/', homeController.index)
+app.get('/',filterController.listProducts, homeController.index)
 app.get('/login', loginContoller.index)
 app.post('/login', loginContoller.postLogin)
 
@@ -42,6 +43,7 @@ app.get('/image/:id', getImage)
 app.get("/logout",sessionManager.isLoggedIn,loginContoller.logout)
 app.get("/new/product",sessionManager.isLoggedIn,productsController.index)
 app.post("/new/product",sessionManager.isLoggedIn,productsController.imageUpload,productsController.postNewProduct)
+app.get("/products",sessionManager.isLoggedIn, filterController.listProducts)
 
 
 
@@ -61,9 +63,6 @@ app.use((err,req,res,next)=>{
   
   res.render("error")
 })
-
-
-
 
 
 export default app
