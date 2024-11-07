@@ -26,6 +26,9 @@
 
 .img{
     max-width: 300px;
+    border-radius: 10%;
+    border: solid 1px #f8cdcd;
+    
 }
 body{background-color: rgb(204, 204, 204);
     }

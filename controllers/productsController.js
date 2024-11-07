@@ -1,4 +1,5 @@
 import multer from 'multer';
+import createError from 'http-errors';
 import Product from "../models/Product.js";
 
 export function index(req,res,next){
@@ -34,3 +35,27 @@ export async function postNewProduct(req,res,next){
     //si hay un error lo capturamos y llamamos a next
     next(err)
 }}
+
+export async function deleteProduct(req,res,next) {
+    
+    const userID = req.session.userID
+    const productID = req.params.productID
+    
+
+    const product = await Product.findOne({_id:productID})
+
+    if(!product){
+        console.warn(`WARNING - el usuario ${userID} esta intentando eliminar un producto inexistente`)
+        next(createError(404, "Not found"))
+        return
+    }
+
+    if(product.owner.toString()!==userID){        
+        console.warn(`WARNING - el usuario ${userID} esta intentando eliminar un producto de otro usuario`)
+        next(createError(401, "Not authorized"))
+        return
+    }
+    await Product.deleteOne({_id:productID})
+    res.redirect("/")
+    
+}

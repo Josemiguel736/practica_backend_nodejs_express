@@ -44,7 +44,7 @@ app.get('/image/:id', getImage)
 app.get("/logout",sessionManager.isLoggedIn,loginContoller.logout)
 app.get("/new/product",sessionManager.isLoggedIn,productsController.index)
 app.post("/new/product",sessionManager.isLoggedIn,productsController.imageUpload,productsController.postNewProduct)
-app.get("/products",sessionManager.isLoggedIn, filterController.listProducts)
+app.get("/product/delete/:productID",sessionManager.isLoggedIn, productsController.deleteProduct)
 
 
 
