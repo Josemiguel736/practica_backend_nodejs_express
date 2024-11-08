@@ -1,83 +1,100 @@
 <%- include('header.ejs') %>
 
-<div class="container">
+  <div class="container">
 
-  <p>Nombre del usuario: <%= session.userName %></p>
+    <p>Nombre del usuario: <%= session.userName %>
+    </p>
 
-  <% if(session.userID){ %>
-    <div class="filter">
-      <h3>Filtro</h3>   
-      
-      <form action="/" method="GET">
-        <label for="tags">Elige etiquetas:</label>
-        <select name="tags" id="tags">
-          <option value="Todos">Todos</option>
-          <% availableTags.forEach(tag => { %>
-            <option value="<%= tag %>"><%= tag %></option>
-          <% }) %>
-        </select>        
+    <% if(session.userID){ %>
+      <div class="filter">
+        <h3>Filtro</h3>
+
+        <form action="/" method="GET">
+          <label for="tags">Elige etiquetas:</label>
+          <select name="tags" id="tags">
+            <option value="Todos">Todos</option>
+            <% availableTags.forEach(tag=> { %>
+              <option value="<%= tag %>">
+                <%= tag %>
+              </option>
+              <% }) %>
+          </select>
 
           <div class="mb-3">
             <label for="min" class="form-label">Min</label>
-            <input type="number" name="min" value="<%= min %>"class="form-control" id="min" aria-describedby="min price">
-            <p><%= error %></p>            
+            <input type="number" name="min" value="<%= min %>" class="form-control" id="min"
+              aria-describedby="min price">
+            <p>
+              <%= error %>
+            </p>
           </div>
-      
+
           <div class="mb-3">
             <label for="max" class="form-label">Max</label>
-            <input type="number" name="max" value="<%= max %>" class="form-control" id="max" aria-describedby="max price">            
+            <input type="number" name="max" value="<%= max %>" class="form-control" id="max"
+              aria-describedby="max price">
           </div>
 
           <div class="mb-3">
             <label for="textSearch" class="form-label">Buscar</label>
-            <input type="text" name="textSearch" value="<%= textSearch %>" class="form-control" id="textSearch" aria-describedby="Text Search">            
+            <input type="text" name="textSearch" value="<%= textSearch %>" class="form-control" id="textSearch"
+              aria-describedby="Text Search">
           </div>
 
           <label for="limit">Limite:</label>
-        <select name="limit" id="limit">
-          <option value="1">1</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option> 
-        </select>  
-      
+          <select name="limit" id="limit">
+            <option value="1">1</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+
           <button type="submit" class="btn-primary">Filtrar</button>
-      
+
         </form>
       </div>
       </form>
-    
-    
-     
+
+
+
       <h3>Productos</h3>
-      
-      <% if (products && products.length > 0) { %>
-        <% products.forEach(product => { %>
+
+      <% if (products && products.length> 0) { %>
+        <% products.forEach(product=> { %>
           <div class="isflex">
             <div class="content">
-            <h5><%= product.name %></h5>
-            <p><b> Precio:</b> <%= product.price %>€</p>
-            <p><b>Etiquetas:</b> <%= product.tags.join(", ") %></p>
+              <h5>
+                <%= product.name %>
+              </h5>
+              <p><b> Precio:</b>
+                <%= product.price %>€
+              </p>
+              <p><b>Etiquetas:</b>
+                <%= product.tags.join(", ") %></p>
           </div>
-            <img class="img" src="/image/<%= product._id %>" alt="Imagen del producto">
-            <form action="/product/delete/<%=product._id %>" method="GET">
-              <button type="submit" class="btn btn-danger">Eliminar Producto</button>
-            </form>
-          </div>
-        <% }) %>
-      <% } else { %>
-        <p>No se encontraron productos con las etiquetas seleccionadas.</p>
-      <% } %>
-      <%}%>
-      <div class="pages">
-      <% for (let page = 1; page <= totalPages; page++) { %>
-        <a href="?page=<%= page %>&tags=<%= tag %>&min=<%= min %>&max=<%= max %>&textSearch=<%= textSearch %>&limit=<%= limit %>" class="page-link"><%= page %></a>
-    <% } %></div>
-    
-      
-    </div>       
-    
-    
-</div>
+            <img class=" img" src="/image/<%= product._id %>" alt="Imagen del producto">
+                  <form action="/product/delete/<%=product._id %>" method="GET">
+                    <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+                  </form>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <p>No se encontraron productos con las etiquetas seleccionadas.</p>
+                <% } %>
+                  <%}%>
+                    <div class="pages">
+                      <% for (let page=1; page <=totalPages; page++) { %>
+                        <a href="?page=<%= page %>&tags=<%= tag %>&min=<%= min %>&max=<%= max %>&textSearch=<%= textSearch %>&limit=<%= limit %>"
+                          class="page-link">
+                          <%= page %>
+                        </a>
+                        <% } %>
+                    </div>
 
-<%- include('footer.ejs') %>
+
+          </div>
+
+
+  </div>
+
+  <%- include('footer.ejs') %>

@@ -1,39 +1,39 @@
 <%- include('header.ejs') %>
 
-<div class="container">
+  <div class="container">
 
-  <h1>NEW PRODUCT</h1>
+    <h1>NEW PRODUCT</h1>
 
-  <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
 
-    <div class="mb-3">
-      
-      <label for="name" class="form-label">Nombre de tu producto</label>
-      <input type="text" name="name" value="" class="form-control" id="name" required>
-      
-    </div>
+      <div class="mb-3">
 
-    <div class="mb-3">
-      <label for="price" class="form-label">Precio</label>
-      <input type="number" name="price" value="" class="form-control" id="price" required>
-    </div>
+        <label for="name" class="form-label">Nombre de tu producto</label>
+        <input type="text" name="name" value="" class="form-control" id="name" required>
 
-    <div class="mb-3">
-      <label for="image">Sube una imagen:</label>
-    <input type="file" id="image" name="image" accept="image/*" required>
-    </div>
+      </div>
 
-    <div class="mb-3">
-      <label for="tags" class="form-label">Tags</label>
-      <input type="text" name="tags" value="" class="form-control" id="tags" required>
-    </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Precio</label>
+        <input type="number" name="price" value="" class="form-control" id="price" required>
+      </div>
 
-    
+      <div class="mb-3">
+        <label for="image">Sube una imagen:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-   
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <input type="text" name="tags" value="" class="form-control" id="tags" required>
+      </div>
 
-  </form>
-</div>
 
-<%- include('footer.ejs') %>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </form>
+  </div>
+
+  <%- include('footer.ejs') %>

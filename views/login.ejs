@@ -1,28 +1,31 @@
 <%- include('header.ejs') %>
 
-<div class="container">
+  <div class="container">
 
-  <h1>Login</h1>
+    <h1>Login</h1>
 
-  <form method="POST">
+    <form method="POST">
 
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" name="email" value="<%= email %>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      
-    </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" name="email" value="<%= email %>" class="form-control" id="exampleInputEmail1"
+          aria-describedby="emailHelp">
 
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <p><%= error %></p>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      </div>
 
-  </form>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <p>
+        <%= error %>
+      </p>
 
-  <a href="/register">Crear nuevo usuario</a>
-</div>
+    </form>
 
-<%- include('footer.ejs') %>
+    <a href="/register">Crear nuevo usuario</a>
+  </div>
+
+  <%- include('footer.ejs') %>
