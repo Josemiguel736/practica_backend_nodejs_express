@@ -11,6 +11,7 @@ import * as loginContoller from "./controllers/loginController.js"
 import * as productsController from "./controllers/productsController.js"
 import getImage from "./controllers/imageCrontroller.js"
 import * as filterController from "./controllers/filterController.js"
+import * as registerUserController from "./controllers/registerUserController.js"
 
 //conexion con mongoose
 await connectMongoose()
@@ -19,8 +20,8 @@ console.log("Conectado a Mongoose")
 //creacion express
 const app= express()
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(express.urlencoded())
 
 //configuramos como funcionaran las vistas
 app.set("views","views")
@@ -37,6 +38,8 @@ app.use(sessionManager.middelwareSession,sessionManager.userSessionInViews)
 app.get('/',filterController.listProducts, homeController.index)
 app.get('/login', loginContoller.index)
 app.post('/login', loginContoller.postLogin)
+app.get('/register', registerUserController.index)
+app.post('/register', registerUserController.postNewUser)
 
 
 //Paginas privadas 

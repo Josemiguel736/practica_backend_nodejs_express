@@ -30,5 +30,11 @@
     border: solid 1px #f8cdcd;
     
 }
+
+.error{ 
+    color:rgb(190, 0, 0);
+    font-size: small;
+    text-align: center;
+}
 body{background-color: rgb(204, 204, 204);
     }
