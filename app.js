@@ -51,6 +51,11 @@ app.get("/product/delete/:productID",sessionManager.isLoggedIn, productsControll
 
 
 
+
+app.use((req, res, next) => {
+  next(createError(404))
+})
+
 //manejador de errores
 app.use((err,req,res,next)=>{
   if(err.array){
