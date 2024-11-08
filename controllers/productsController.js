@@ -18,9 +18,7 @@ export async function postNewProduct(req,res,next){
     const owner = req.session.userID    
     const image = { data: req.file.buffer,
                     contentType: req.file.mimetype
-    }
-
-   
+    }   
 
     //tags vine como un solo string asi que lo separamos por las comas y limpiamos los espacios que haya podido dejar
     const tagList= tags.split(",").map(item =>item.trim().toLowerCase())

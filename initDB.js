@@ -84,7 +84,7 @@ async function initProducts() {
             image:{
                 data: imageBufferWay,
                 contentType: "image/jpeg"},
-            tags:["lifestyle","Comida"]
+            tags:["lifestyle","comida"]
         },
         {   name:"Ordenador MSI",
             owner:admin._id,

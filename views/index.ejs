@@ -4,24 +4,39 @@
 
   <p>Nombre del usuario: <%= session.userName %></p>
 
-
-
-
   <% if(session.userID){ %>
     <div class="filter">
-      <h3>Filtro</h3>
-    
+      <h3>Filtro</h3>   
       
       <form action="/" method="GET">
         <label for="tags">Elige etiquetas:</label>
         <select name="tags" id="tags">
+          <option value=<%= tag %>>Todos</option>
           <% availableTags.forEach(tag => { %>
             <option value="<%= tag %>"><%= tag %></option>
           <% }) %>
         </select>
-        <button type="submit">Filtrar</button>
+        
+
+          <div class="mb-3">
+            <label for="min" class="form-label">Min</label>
+            <input type="number" name="min" value="<%= min %>"class="form-control" id="min" aria-describedby="min price">
+            <p><%= error %></p>
+            
+          </div>
+      
+          <div class="mb-3">
+            <label for="max" class="form-label">Max</label>
+            <input type="number" name="max" value="<%= max %>" class="form-control" id="min" aria-describedby="max price">
+            
+          </div>
+      
+          <button type="submit" class="btn-primary">Filtrar</button>
+      
+        </form>
+      </div>
       </form>
-    </div>
+    
     
      
       <h3>Productos</h3>
