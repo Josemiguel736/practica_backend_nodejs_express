@@ -36,5 +36,12 @@
     font-size: small;
     text-align: center;
 }
+
+.pages{
+    display: flex;
+    gap:30px;
+    margin-bottom: 20px;
+}
 body{background-color: rgb(204, 204, 204);
     }
+
