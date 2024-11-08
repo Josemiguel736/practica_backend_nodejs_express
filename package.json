@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODEPOP_ENV=production node server.js",
     "dev": "cross-env DEBUG=nodepop:* NODEPOP_ENV=development nodemon server.js",
-    "initDB": "node initDB.js"
+    "initDB": "node initDB.js",    
+     "lint": "npx standard ",
+     "lintFix":"npx standard --fix "
   },
   "author": "José Miguel Atiénzar",
   "license": "ISC",
