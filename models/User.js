@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 
 // Esquema del usuario
 const userSchema = new Schema({
-  userName: { type: String, unique: true },
+  userName: String,
   email: { type: String, unique: true },
   password: String
 })

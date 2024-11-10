@@ -21,8 +21,8 @@ export async function postNewProduct (req, res, next) {
       contentType: req.file.mimetype
     }
 
-    // tags vine como un solo string asi que lo separamos por las comas y limpiamos los espacios que haya podido dejar
-    const tagList = tags.split(',').map(item => item.trim().toLowerCase())
+    // tags vine como un solo string asi que lo separamos por las comas o espacios gracias a esta expresión regular y limpiamos los espacios extra que haya podido dejar
+    const tagList = tags.split(/(?:,| )+/).map(item => item.trim().toLowerCase())
     // creamos el producto en memoria
     const product = new Product({ name, owner, price, image, tags: tagList })
     // lo guardamos en mongoDB

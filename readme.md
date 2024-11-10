@@ -9,7 +9,7 @@ npm install
 ````
 Create de initial data on your first deploy with this command
 ````sh
-npm install
+npm run initDB
 ````
 ### Start:
 
@@ -21,9 +21,17 @@ npm start
 To start in development mode
 
 ````sh
-npm start
+npm run dev
 ````
 
+Default users data:
+````sh
+email: admin@example.com
+pass: admin
+
+email: usuario@example.com
+pass: usuario
+````
 ### Lint:
 
 To see the writing errors in the code with Standard
