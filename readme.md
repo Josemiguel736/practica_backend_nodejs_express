@@ -65,3 +65,8 @@ Los productos en NodePop deben:
 - Tener un precio
 - Tener un dueño
 
+### Imágenes de producto
+Las imágenes he decidido NO se subirlas en la carpeta public porque cada usuario solo puede ver sus productos, entonces me parecía mas lógico que no esten las imágenes de sus productos a la vista de cualquiera.
+
+Con respecto a la versión anterior de NodePop ahora las imágenes no se guardan en la base de datos, si no que se guardan en el propio servidor y en la base de datos solo guardamos una referencia a la ruta de la imagen.
+

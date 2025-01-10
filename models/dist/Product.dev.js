@@ -7,24 +7,44 @@ Object.defineProperty(exports, '__esModule', {
 })
 exports.default = void 0
 
-const _i18n = require('i18n')
-
-const _nodePath = _interopRequireDefault(require('node:path'))
-
-const utils = _interopRequireWildcard(require('./utils.js'))
+const _mongoose = _interopRequireWildcard(require('mongoose'))
 
 function _getRequireWildcardCache () { if (typeof WeakMap !== 'function') return null; const cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache () { return cache }; return cache }
 
 function _interopRequireWildcard (obj) { if (obj && obj.__esModule) { return obj } if (obj === null || _typeof(obj) !== 'object' && typeof obj !== 'function') { return { default: obj } } const cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj) } const newObj = {}; const hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (const key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { const desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc) } else { newObj[key] = obj[key] } } } newObj.default = obj; if (cache) { cache.set(obj, newObj) } return newObj }
 
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
-
-const i18n = new _i18n.I18n({
-  locales: ['en', 'es'],
-  directory: _nodePath.default.join(utils.__dirname, '..', 'locales'),
-  defaultLocale: 'en',
-  autoReload: true,
-  cookie: 'nodepop-locale'
+const productSchema = new _mongoose.Schema({
+  name: String,
+  owner: {
+    ref: 'user',
+    type: _mongoose.default.Schema.Types.ObjectId
+  },
+  price: Number,
+  image: String,
+  tags: [String]
 })
-const _default = i18n
+productSchema.index({
+  owner: 1
+})
+productSchema.index({
+  tags: 1
+})
+productSchema.index({
+  price: 1
+})
+productSchema.index({
+  name: 'text'
+})
+productSchema.index({
+  owner: 1,
+  tags: 1
+})
+productSchema.index({
+  owner: 1,
+  price: 1
+})
+
+const Product = _mongoose.default.model('product', productSchema)
+
+const _default = Product
 exports.default = _default

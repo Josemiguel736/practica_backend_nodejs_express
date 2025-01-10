@@ -72,7 +72,7 @@
               <p><b><%=__("Tags:")%></b>
                 <%= product.tags.join(", ") %></p>
           </div>
-            <img class=" img" src="/image/<%= product._id %>" alt=<%=__("Product image")%>>
+            <img class=" img" src="./uploads/<%= product.image %>" alt=<%=__("Product image")%>>
                   <form action="/product/delete/<%=product._id %>" method="GET">
                     <button type="submit" class="btn btn-danger"><%=__("Delete Product")%></button>
                   </form>

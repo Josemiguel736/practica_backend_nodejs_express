@@ -9,12 +9,12 @@ import * as sessionManager from './lib/sessionManager.js'
 import * as homeController from './controllers/homeController.js'
 import * as loginContoller from './controllers/loginController.js'
 import * as productsController from './controllers/productsController.js'
-import getImage from './controllers/imageCrontroller.js'
 import * as filterController from './controllers/filterController.js'
 import * as registerUserController from './controllers/registerUserController.js'
 import i18n from './lib/i18nConfigure.js'
 import * as langController from './controllers/langController.js'
 import cookieParser from 'cookie-parser'
+import upload from './lib/uploadConfigure.js'
 
 // conexion con mongoose
 await connectMongoose()
@@ -49,11 +49,11 @@ app.get('/register', registerUserController.index)
 app.post('/register', registerUserController.postNewUser)
 
 // Paginas privadas
-app.get('/image/:id', getImage)
 app.get('/logout', sessionManager.isLoggedIn, loginContoller.logout)
 app.get('/new/product', sessionManager.isLoggedIn, productsController.index)
-app.post('/new/product', sessionManager.isLoggedIn, productsController.imageUpload, productsController.postNewProduct)
+app.post('/new/product', sessionManager.isLoggedIn, upload.single('image'), productsController.postNewProduct)
 app.get('/product/delete/:productID', sessionManager.isLoggedIn, productsController.deleteProduct)
+app.get('/public/uploads', sessionManager.isLoggedIn)
 
 app.use((req, res, next) => {
   next(createError(404))
