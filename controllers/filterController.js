@@ -23,6 +23,7 @@ export async function listProducts (req, res, next) {
     const textSearch = req.query.textSearch
     const page = req.query.page
     const limit = req.query.limit
+    const sort = req.query.sort
 
     // creamos un filtro basico con los productos de los que el usuario es propietario
     const filter = { owner: userID }
@@ -61,7 +62,7 @@ export async function listProducts (req, res, next) {
     res.locals.totalPages = countProducts / limit
 
     // busqueda de productos
-    const products = await Product.find(filter).skip(skip).limit(limit)
+    const products = await Product.list(filter, limit, skip, sort)
 
     // asignamos las variables para poder usarlas en la vista y llamamos a next
     res.locals.products = products
@@ -69,6 +70,7 @@ export async function listProducts (req, res, next) {
     res.locals.min = min
     res.locals.max = max
     res.locals.textSearch = textSearch
+    res.locals.limit = limit
 
     next()
   } catch (error) {

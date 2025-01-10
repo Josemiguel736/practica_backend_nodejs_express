@@ -43,11 +43,13 @@
 
           <label for="limit"><%=__("Limit:")%></label>
           <select name="limit" id="limit">
-            <option value="1">1</option>
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </select>
+            <% const options = [1,3,5,10,25,50] %>            
+              <% options.forEach(optionValue => { %>
+                <option value="<%= optionValue %>" <%= optionValue == limit ? 'selected' : '' %>>
+                  <%= optionValue %>
+                </option>
+              <% }); %>
+            </select>
 
           <button type="submit" class="btn-primary"><%=__("Filter")%></button>
 
