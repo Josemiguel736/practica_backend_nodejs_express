@@ -26,19 +26,28 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/"><%=__("Home")%></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/new/product">Nuevo producto</a>
+            <a class="nav-link" href="/new/product"><%=__("New Product")%></a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <% if (session.userID) { %>
-            <a href="/logout" class="btn btn-outline-success" type="submit">Logout</a>
-            <% } else { %>
-              <a href="/login" class="btn btn-outline-success" type="submit">Login</a>
-              <% } %>
-        </form>
+
+        <%#lang selector %>
+          <div class="lang-selector">
+            <%getLocales().forEach(lang=> {%>
+              <a href="/change-locale/<%= lang %>"><img src="/images/<%= lang %>.png" alt="<%= lang %>"></a>
+              <% }) %>
+          </div>
+
+
+          <form class="d-flex" role="search">
+            <% if (session.userID) { %>
+              <a href="/logout" class="btn btn-outline-success" type="submit"><%=__("Logout")%></a>
+              <% } else { %>
+                <a href="/login" class="btn btn-outline-success" type="submit"><%=__("Login")%></a>
+                <% } %>
+          </form>
       </div>
     </div>
   </nav>

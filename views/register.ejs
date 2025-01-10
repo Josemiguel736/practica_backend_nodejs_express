@@ -6,12 +6,12 @@
 
     <form method="POST" action="/register">
       <div class="mb-3">
-        <label for="name" class="form-label">Nombre</label>
+        <label for="name" class="form-label"><%=__("Name")%></label>
         <input type="text" name="name" class="form-control" value="<%= name %>" id="name" required>
       </div>
 
       <div class="mb-3">
-        <label for="email" class="form-label">Correo Electrónico</label>
+        <label for="email" class="form-label"><%=__("Email adress")%></label>
         <input type="email" name="email" class="form-control" value="<%= email %>" id="email" required>
         <p class="error">
           <%= error %>
@@ -19,11 +19,11 @@
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
+        <label for="password" class="form-label"><%=__("Password")%></label>
         <input type="password" name="password" class="form-control" id="password" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Registrar</button>
+      <button type="submit" class="btn btn-primary"><%=__("Register")%></button>
     </form>
 
 

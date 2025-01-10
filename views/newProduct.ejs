@@ -8,29 +8,29 @@
 
       <div class="mb-3">
 
-        <label for="name" class="form-label">Nombre de tu producto</label>
+        <label for="name" class="form-label"><%=__("Product name")%></label>
         <input type="text" name="name" value="" class="form-control" id="name" required>
 
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Precio</label>
+        <label for="price" class="form-label"><%=__("Price")%></label>
         <input type="number" name="price" value="" class="form-control" id="price" required>
       </div>
 
       <div class="mb-3">
-        <label for="image">Sube una imagen:</label>
+        <label for="image"><%=__("Upload image")%></label>
         <input type="file" id="image" name="image" accept="image/*" required>
       </div>
 
       <div class="mb-3">
-        <label for="tags" class="form-label">Tags</label>
+        <label for="tags" class="form-label"><%=__("Tags")%></label>
         <input type="text" name="tags" value="" class="form-control" id="tags" required>
       </div>
 
 
 
-      <button type="submit" class="btn btn-primary">Crear producto</button>
+      <button type="submit" class="btn btn-primary"><%=__("Create product")%></button>
 
 
     </form>

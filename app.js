@@ -12,6 +12,9 @@ import * as productsController from './controllers/productsController.js'
 import getImage from './controllers/imageCrontroller.js'
 import * as filterController from './controllers/filterController.js'
 import * as registerUserController from './controllers/registerUserController.js'
+import i18n from './lib/i18nConfigure.js'
+import * as langController from './controllers/langController.js'
+import cookieParser from 'cookie-parser'
 
 // conexion con mongoose
 await connectMongoose()
@@ -22,6 +25,7 @@ const app = express()
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cookieParser())
 
 // configuramos como funcionaran las vistas
 app.set('views', 'views')
@@ -33,7 +37,10 @@ app.use(logger('dev'))
 // variables comunes en las vistas de mi aplicación
 app.locals.appName = 'Node Pop'
 
+app.use(i18n.init)
+app.get('/change-locale/:locale', langController.changeLocale)
 app.use(sessionManager.middelwareSession, sessionManager.userSessionInViews)
+
 // Rutas PUBLICAS de la aplicacion
 app.get('/', filterController.listProducts, homeController.index)
 app.get('/login', loginContoller.index)

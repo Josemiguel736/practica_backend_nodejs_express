@@ -2,30 +2,30 @@
 
   <div class="container">
 
-    <h1>Login</h1>
+    <h1><%=__("Login")%></h1>
 
     <form method="POST">
 
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <label for="exampleInputEmail1" class="form-label"><%=__("Email adress")%></label>
         <input type="email" name="email" value="<%= email %>" class="form-control" id="exampleInputEmail1"
           aria-describedby="emailHelp">
 
       </div>
 
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <label for="exampleInputPassword1" class="form-label"><%=__("Password")%></label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword1">
       </div>
 
-      <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      <button type="submit" class="btn btn-primary"><%=__("Login")%></button>
       <p>
         <%= error %>
       </p>
 
     </form>
 
-    <a href="/register">Crear nuevo usuario</a>
+    <a href="/register"><%=__("Register")%></a>
   </div>
 
   <%- include('footer.ejs') %>
