@@ -7,6 +7,12 @@
 ````sh
 npm install
 ````
+
+On first deploy copy .env.example to .env and customize environment variables
+````sh
+cp .env.example .env
+````
+
 Create de initial data on your first deploy with this command
 ````sh
 npm run initDB
@@ -37,12 +43,12 @@ pass: usuario
 To see the writing errors in the code with Standard
 
 ````sh
-npm lint
+npm run lint
 ````
 To fix the writing errors in the code with Standard
 
 ````sh
-npm lintFix
+npm run lintFix
 ````
 
 ## Justificacion del proyecto
@@ -66,7 +72,5 @@ Los productos en NodePop deben:
 - Tener un dueño
 
 ### Imágenes de producto
-Las imágenes he decidido NO se subirlas en la carpeta public porque cada usuario solo puede ver sus productos, entonces me parecía mas lógico que no esten las imágenes de sus productos a la vista de cualquiera.
-
 Con respecto a la versión anterior de NodePop ahora las imágenes no se guardan en la base de datos, si no que se guardan en el propio servidor y en la base de datos solo guardamos una referencia a la ruta de la imagen.
 
