@@ -51,7 +51,52 @@ To fix the writing errors in the code with Standard
 npm run lintFix
 ````
 
-## Justificacion del proyecto
+## API
+
+Base URL: http://127.0.0.1:3000/api/
+
+### Agent List 
+
+GET api/products
+````json
+{
+    "result": [
+        {
+            "_id": "67815d781c74949fcdd5be52",
+            "name": "coche",
+            "owner": "6730cec50038c5cfcc7a41b3",
+            "price": 22,
+            "image": "image-1736531320935-original.png",
+            "tags": [
+                "motor"
+            ],
+            "__v": 0
+        },
+        // ...
+    ],
+    "count": 7
+}
+````
+GET /api/products/id
+````json
+{
+    "result": 
+        {
+            "_id": "67815d781c74949fcdd5be52",
+            "name": "coche",
+            "owner": "6730cec50038c5cfcc7a41b3",
+            "price": 22,
+            "image": "image-1736531320935-original.png",
+            "tags": [
+                "motor"
+            ],
+            "__v": 0
+        }
+}
+````
+
+
+## Web
 
 ### Funcionalidades usuarios
 

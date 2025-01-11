@@ -15,6 +15,7 @@ import i18n from './lib/i18nConfigure.js'
 import * as langController from './controllers/langController.js'
 import cookieParser from 'cookie-parser'
 import upload from './lib/uploadConfigure.js'
+import * as apiProductsController from './controllers/apiControllers/apiProductsController.js'
 
 // conexion con mongoose
 await connectMongoose()
@@ -41,14 +42,23 @@ app.use(i18n.init)
 app.get('/change-locale/:locale', langController.changeLocale)
 app.use(sessionManager.middelwareSession, sessionManager.userSessionInViews)
 
-// Rutas PUBLICAS de la aplicacion
+// Rutas publicas de la API
+
+// CRUD de productos
+app.get('/api/products', apiProductsController.apiProductsList)
+app.get('/api/products/:productsId', apiProductsController.apiProductGetOne)
+app.post('/api/products', upload.single('image'), apiProductsController.apiProductNew)
+app.put('/api/products/:productId', upload.single('image'), apiProductsController.apiProductUpdate)
+app.delete('/api/products/:productId', apiProductsController.apiProductDelete)
+
+// Rutas publicas de la web
 app.get('/', filterController.listProducts, homeController.index)
 app.get('/login', loginContoller.index)
 app.post('/login', loginContoller.postLogin)
 app.get('/register', registerUserController.index)
 app.post('/register', registerUserController.postNewUser)
 
-// Paginas privadas
+// Paginas privadas de la web
 app.get('/logout', sessionManager.isLoggedIn, loginContoller.logout)
 app.get('/new/product', sessionManager.isLoggedIn, productsController.index)
 app.post('/new/product', sessionManager.isLoggedIn, upload.single('image'), productsController.postNewProduct)
@@ -69,6 +79,12 @@ app.use((err, req, res, next) => {
     err.status = 422
   }
   res.status(err.status || 500)
+
+  // Error en el API, send JSON
+  if (req.url.startsWith('/api/')) {
+    res.json({ error: err.message })
+    return
+  }
 
   res.locals.message = err.message
   res.locals.error = process.env.NODEPOP_ENV === 'development' ? err : {}
