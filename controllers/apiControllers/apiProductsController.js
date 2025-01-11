@@ -1,5 +1,5 @@
 import Product from '../../models/Product.js'
-
+import createError from 'http-errors'
 export async function apiProductsList (req, res, next) {
   try {
     const tags = req.query.tags || 'Todos'
@@ -11,7 +11,7 @@ export async function apiProductsList (req, res, next) {
     const skip = req.query.skip
     const fields = req.query.fields
 
-    const filter = { }
+    const filter = { owner: req.apiUserId }
     if (tags !== 'Todos' & tags !== undefined) {
       filter.tags = { $in: tags }
     }
@@ -46,7 +46,7 @@ export async function apiProductsList (req, res, next) {
 export async function apiProductGetOne (req, res, next) {
   try {
     const productId = req.params.productsId
-    const product = await Product.findById(productId)
+    const product = await Product.findOne({ _id: productId, owner: req.apiUserId })
     res.json({ result: product })
   } catch (error) {
     next(error)
@@ -57,7 +57,6 @@ export async function apiProductNew (req, res, next) {
   try {
     const productData = req.body
 
-    // create instance in memory
     const product = new Product(productData)
 
     const tags = product.tags
@@ -65,13 +64,11 @@ export async function apiProductNew (req, res, next) {
       product.tags = tags[0].split(',').map(tag => tag.trim())
     }
 
-    // upload image
     product.image = req.file?.filename
+    product.owner = req.apiUserId
 
-    // save in database
     const savedProduct = await product.save()
 
-    // response
     res.status(201).json({ result: savedProduct })
   } catch (error) {
     next(error)
@@ -88,7 +85,7 @@ export async function apiProductUpdate (req, res, next) {
       productData.tags = tags.split(',').map(tag => tag.trim())
     }
 
-    const product = await Product.findByIdAndUpdate(productId, productData, { new: true })
+    const product = await Product.findOneAndUpdate({ _id: productId, owner: req.apiUserId }, productData, { new: true })
     res.json({ result: product })
   } catch (error) {
     next(error)
@@ -98,6 +95,17 @@ export async function apiProductUpdate (req, res, next) {
 export async function apiProductDelete (req, res, next) {
   try {
     const productId = req.params.productId
+
+    const product = await Product.findOne({ _id: productId }).exec()
+
+    if (!product) {
+      console.warn(`WARNING: El usuario ${req.apiUserId} intenta borrar un producto que no existe`)
+      return next(createError(404, 'Product not found'))
+    }
+    if (product.owner.toString() !== req.apiUserId) {
+      console.warn(`WARNING: El usuario ${req.apiUserId} intenta borrar el producto ${productId} que no es de su propiedad`)
+      return next(createError(403, 'Forbidden'))
+    }
 
     await Product.deleteOne({ _id: productId })
 

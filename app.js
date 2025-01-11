@@ -16,6 +16,8 @@ import * as langController from './controllers/langController.js'
 import cookieParser from 'cookie-parser'
 import upload from './lib/uploadConfigure.js'
 import * as apiProductsController from './controllers/apiControllers/apiProductsController.js'
+import * as authController from './controllers/apiControllers/apiAuthController.js'
+import * as auth from './lib/jwtAuthMiddleware.js'
 
 // conexion con mongoose
 await connectMongoose()
@@ -43,13 +45,15 @@ app.get('/change-locale/:locale', langController.changeLocale)
 app.use(sessionManager.middelwareSession, sessionManager.userSessionInViews)
 
 // Rutas publicas de la API
+app.post('/api/login', authController.authJWT)
 
+// Rutas privadas de la API
 // CRUD de productos
-app.get('/api/products', apiProductsController.apiProductsList)
-app.get('/api/products/:productsId', apiProductsController.apiProductGetOne)
-app.post('/api/products', upload.single('image'), apiProductsController.apiProductNew)
-app.put('/api/products/:productId', upload.single('image'), apiProductsController.apiProductUpdate)
-app.delete('/api/products/:productId', apiProductsController.apiProductDelete)
+app.get('/api/products', auth.guard, apiProductsController.apiProductsList)
+app.get('/api/products/:productsId', auth.guard, apiProductsController.apiProductGetOne)
+app.post('/api/products', auth.guard, upload.single('image'), apiProductsController.apiProductNew)
+app.put('/api/products/:productId', auth.guard, upload.single('image'), apiProductsController.apiProductUpdate)
+app.delete('/api/products/:productId', auth.guard, apiProductsController.apiProductDelete)
 
 // Rutas publicas de la web
 app.get('/', filterController.listProducts, homeController.index)

@@ -15,7 +15,6 @@ export async function postLogin (req, res, next) {
     // busco en la base de datos el usuario en cuestión
     const user = await User.findOne({ email: emailNormal })
 
-    console.log(user)
     // si email o contraseña son incorrectos
     if (!user || !(await user.comparePassword(password))) { // compruebo si ese usuario existe y que la contraseña especificada ademas concuerda con la que yo tengo registrada
       res.locals.email = email // Mantengo el email especificado por el usuario en la vista
@@ -27,7 +26,6 @@ export async function postLogin (req, res, next) {
     req.session.userID = user._id
     req.session.userName = user.userName
     // redirijo al home
-    console.log(user.userName)
     res.redirect('/')
   } catch (error) {
     next(error) // si hay un error llamo a next para que se ocupe
