@@ -1,5 +1,8 @@
 import createError from 'http-errors'
 import Product from '../models/Product.js'
+import { __dirname } from '../lib/utils.js'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
 export function index (req, res, next) {
   res.render('newProduct')
@@ -44,6 +47,12 @@ export async function deleteProduct (req, res, next) {
     next(createError(401, 'Not authorized'))
     return
   }
+
+  if (product.image) {
+    const route = path.join(__dirname, '..', 'public', 'uploads')
+    await fs.unlink(path.join(route, product.image))
+  }
+
   await Product.deleteOne({ _id: productID })
   res.redirect('/')
 }

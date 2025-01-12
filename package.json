@@ -10,7 +10,8 @@
     "dev": "cross-env DEBUG=nodepop:* NODEPOP_ENV=development nodemon server.js",
     "initDB": "node initDB.js",
     "lint": "npx standard ",
-    "lintFix": "npx standard --fix "
+    "lintFix": "npx standard --fix ",
+    "cleanImg": "node cleanImages.js"
   },
   "author": "José Miguel Atiénzar",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
+    "fs": "^0.0.1-security",
     "http-errors": "^2.0.0",
     "i18n": "^0.15.1",
     "jsonwebtoken": "^9.0.2",

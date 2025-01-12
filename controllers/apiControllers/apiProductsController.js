@@ -1,5 +1,8 @@
 import Product from '../../models/Product.js'
 import createError from 'http-errors'
+import { __dirname } from '../../lib/utils.js'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 export async function apiProductsList (req, res, next) {
   try {
     const tags = req.query.tags || 'Todos'
@@ -105,6 +108,11 @@ export async function apiProductDelete (req, res, next) {
     if (product.owner.toString() !== req.apiUserId) {
       console.warn(`WARNING: El usuario ${req.apiUserId} intenta borrar el producto ${productId} que no es de su propiedad`)
       return next(createError(403, 'Forbidden'))
+    }
+
+    if (product.image) {
+      const route = path.join(__dirname, '..', 'public', 'uploads')
+      await fs.unlink(path.join(route, product.image))
     }
 
     await Product.deleteOne({ _id: productId })

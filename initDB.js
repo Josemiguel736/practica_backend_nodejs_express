@@ -1,8 +1,6 @@
 import 'dotenv/config'
 import connectMongoose from './lib/connectMongoose.js'
 import readline from 'node:readline'
-import fs from 'node:fs'
-import path from 'node:path'
 import User from './models/User.js'
 import Product from './models/Product.js'
 
