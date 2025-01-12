@@ -18,6 +18,7 @@ if (questionResponse.toLowerCase() !== 'yes') {
 
 await initUsers()
 await initProducts()
+process.exit()
 
 async function initUsers () {
   // Eliminamos los usuarios iniciales
@@ -43,20 +44,13 @@ async function initProducts () {
     User.findOne({ email: 'usuario@example.com' })
   ])
 
-  // rutas de las imagenes
-  const __dirname = (path.dirname(new URL(import.meta.url).pathname)).substring(3)
+  const imageCupra = 'image-1736683439353-seat-leon-cupra.jpg'
 
-  const imageCupra = path.join(__dirname, './img/initDbImages/seat-leon-cupra.jpg')
-  const imageBufferCupra = fs.readFileSync(imageCupra)
+  const imageVoge = 'image-1736683935267-voge.jpg'
 
-  const imageVoge = path.join(__dirname, './img/initDbImages/voge.jpg')
-  const imageBufferVoge = fs.readFileSync(imageVoge)
+  const imageMsi = 'image-1736683688355-msi.jpg'
 
-  const imageMsi = path.join(__dirname, './img/initDbImages/msi.jpg')
-  const imageBufferMsi = fs.readFileSync(imageMsi)
-
-  const imageWay = path.join(__dirname, './img/initDbImages/cesta-navidad.jpg')
-  const imageBufferWay = fs.readFileSync(imageWay)
+  const imageWay = 'image-1736683728317-cesta-navidad.jpg'
 
   // Creamos los nuevos productos
   const insertResult = await Product.insertMany([
@@ -64,40 +58,28 @@ async function initProducts () {
       name: 'Seat Leon Cupra',
       owner: user._id,
       price: 15000,
-      image: {
-        data: imageBufferCupra,
-        contentType: 'image/jpeg'
-      },
+      image: imageCupra,
       tags: ['motor', 'lifestyle']
     },
     {
       name: 'Voge 125R',
       owner: user._id,
       price: 3000,
-      image: {
-        data: imageBufferVoge,
-        contentType: 'image/jpeg'
-      },
+      image: imageVoge,
       tags: ['motor', 'lifestyle', 'Motocicletas']
     },
     {
       name: 'Cesta de navidad ',
       owner: admin._id,
       price: 150,
-      image: {
-        data: imageBufferWay,
-        contentType: 'image/jpeg'
-      },
+      image: imageWay,
       tags: ['lifestyle', 'comida']
     },
     {
       name: 'Ordenador MSI',
       owner: admin._id,
       price: 1200,
-      image: {
-        data: imageBufferMsi,
-        contentType: 'image/jpeg'
-      },
+      image: imageMsi,
       tags: ['pc', 'portatil']
     }
 
