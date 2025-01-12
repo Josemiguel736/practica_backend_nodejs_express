@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-// Esquema del usuario
+// Esquema del producto
 const productSchema = new Schema({
   name: String,
   owner: { ref: 'user', type: mongoose.Schema.Types.ObjectId },

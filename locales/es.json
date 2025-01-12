@@ -25,5 +25,6 @@
 	"Password": "Contraseña",
 	"Register": "Registrarse",
 	"Name": "Nombre",
-	"No products were found with the selected tags.": "No products were found with the selected tags."
+	"No products were found with the selected tags.": "No products were found with the selected tags.",
+	"API Documentation": "Documentación del API"
 }

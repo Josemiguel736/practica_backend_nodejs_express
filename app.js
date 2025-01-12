@@ -18,6 +18,7 @@ import upload from './lib/uploadConfigure.js'
 import * as apiProductsController from './controllers/apiControllers/apiProductsController.js'
 import * as authController from './controllers/apiControllers/apiAuthController.js'
 import * as auth from './lib/jwtAuthMiddleware.js'
+import swaggerMiddleware from './lib/swaggerMiddleware.js'
 
 // conexion con mongoose
 await connectMongoose()
@@ -56,6 +57,7 @@ app.put('/api/products/:productId', auth.guard, upload.single('image'), apiProdu
 app.delete('/api/products/:productId', auth.guard, apiProductsController.apiProductDelete)
 
 // Rutas publicas de la web
+app.use('/api-doc', swaggerMiddleware)
 app.get('/', filterController.listProducts, homeController.index)
 app.get('/login', loginContoller.index)
 app.post('/login', loginContoller.postLogin)

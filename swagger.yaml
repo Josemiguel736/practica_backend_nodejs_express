@@ -1,0 +1,241 @@
+openapi: 3.0.0
+info:
+  title: Nodepop API
+  version: 1.0.0
+  description: API para la gestión de productos y autenticación en Nodepop
+paths:
+  /api/login:
+    post:
+      summary: Autentica un usuario y devuelve un token JWT
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: email de usuario
+                  example: "usuario@example.com"
+                password:
+                  type: string
+                  description: Contraseña del usuario
+                  example: "contraseña123"
+      responses:
+        '200':
+          description: Autenticación exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token JWT para autenticación
+        '401':
+          description: Credenciales inválidas
+  /api/products:
+    get:
+      summary: Obtiene una lista de productos con filtros opcionales
+      tags:
+        - Products
+      parameters:
+        - name: tags
+          in: query
+          description: Filtra los productos por tags (separados por comas)
+          required: false
+          schema:
+            type: string
+        - name: min
+          in: query
+          description: Precio mínimo del producto
+          required: false
+          schema:
+            type: integer
+        - name: max
+          in: query
+          description: Precio máximo del producto
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Busca productos por nombre (búsqueda parcial)
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Número máximo de productos devueltos
+          required: false
+          schema:
+            type: integer
+        - name: skip
+          in: query
+          description: Número de productos a omitir (para paginación)
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: Orden de los productos (campo y dirección)
+          required: false
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Campos específicos a devolver en los productos
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  count:
+                    type: integer
+        '400':
+          description: Solicitud inválida
+        '401':
+          description: No autorizado
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del producto
+                  example: "Laptop MSI"
+                price:
+                  type: number
+                  description: Precio del producto
+                  example: 1200.99
+                image:
+                  type: string
+                  description: Nombre del archivo de la imagen del producto
+                  example: "imagen-producto.jpg"
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags asociados al producto
+                  example: ["tecnología", "laptop", "gaming"]
+      responses:
+        '201':
+          description: Producto creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Solicitud inválida
+        '401':
+          description: No autorizado
+  /api/products/{productId}:
+    get:
+      summary: Obtiene un producto específico por su ID
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Producto no encontrado
+    put:
+      summary: Actualiza un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Producto actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Producto no encontrado
+    delete:
+      summary: Elimina un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado exitosamente
+        '404':
+          description: Producto no encontrado
+        '403':
+          description: No autorizado para eliminar este producto
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único del producto
+        name:
+          type: string
+          description: Nombre del producto
+        owner:
+          type: string
+          description: ID del propietario del producto
+        price:
+          type: number
+          description: Precio del producto
+        image:
+          type: string
+          description: Nombre del archivo de la imagen
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags asociados al producto
