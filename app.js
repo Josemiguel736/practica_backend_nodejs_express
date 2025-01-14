@@ -19,6 +19,7 @@ import * as apiProductsController from './controllers/apiControllers/apiProducts
 import * as authController from './controllers/apiControllers/apiAuthController.js'
 import * as auth from './lib/jwtAuthMiddleware.js'
 import swaggerMiddleware from './lib/swaggerMiddleware.js'
+import * as sendThumbnail from './lib/sendThumbnail.js'
 
 // conexion con mongoose
 await connectMongoose()
@@ -52,7 +53,7 @@ app.post('/api/login', authController.authJWT)
 // CRUD de productos
 app.get('/api/products', auth.guard, apiProductsController.apiProductsList)
 app.get('/api/products/:productsId', auth.guard, apiProductsController.apiProductGetOne)
-app.post('/api/products', auth.guard, upload.single('image'), apiProductsController.apiProductNew)
+app.post('/api/products', auth.guard, upload.single('image'), sendThumbnail.sendThumbnail, apiProductsController.apiProductNew)
 app.put('/api/products/:productId', auth.guard, upload.single('image'), apiProductsController.apiProductUpdate)
 app.delete('/api/products/:productId', auth.guard, apiProductsController.apiProductDelete)
 
@@ -67,7 +68,7 @@ app.post('/register', registerUserController.postNewUser)
 // Paginas privadas de la web
 app.get('/logout', sessionManager.isLoggedIn, loginContoller.logout)
 app.get('/new/product', sessionManager.isLoggedIn, productsController.index)
-app.post('/new/product', sessionManager.isLoggedIn, upload.single('image'), productsController.postNewProduct)
+app.post('/new/product', sessionManager.isLoggedIn, upload.single('image'), sendThumbnail.sendThumbnail, productsController.postNewProduct)
 app.get('/product/delete/:productID', sessionManager.isLoggedIn, productsController.deleteProduct)
 app.get('/public/uploads', sessionManager.isLoggedIn)
 

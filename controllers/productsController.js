@@ -1,6 +1,6 @@
 import createError from 'http-errors'
 import Product from '../models/Product.js'
-import { __dirname } from '../lib/utils.js'
+import { __dirname, fileExists } from '../lib/utils.js'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
@@ -50,9 +50,23 @@ export async function deleteProduct (req, res, next) {
 
   if (product.image) {
     const route = path.join(__dirname, '..', 'public', 'uploads')
-    await fs.unlink(path.join(route, product.image))
+    const routeThum = path.join(__dirname, '..', 'public', 'uploads', 'thumbnails')
+    const [existImage, existThum] = await Promise.all([
+      fileExists(route, product.image),
+      fileExists(routeThum, product.image)
+    ])
+
+    if (existImage){
+      await fs.unlink(path.join(route, product.image))
+    }
+    if (existThum){
+      await fs.unlink(path.join(routeThum, product.image))
+    }
   }
 
   await Product.deleteOne({ _id: productID })
   res.redirect('/')
 }
+
+
+

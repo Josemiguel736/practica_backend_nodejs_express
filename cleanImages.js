@@ -11,17 +11,31 @@ export async function cleanImages () {
     imagesInUse.push(product.image)
   })
   const route = path.join(import.meta.dirname, 'public', 'uploads')
-  const files = await fs.readdir(route)
+  const routeThum = path.join(import.meta.dirname, 'public', 'uploads', 'thumbnails')
+ const stats = await fs.lstat(route)
+  const thumbnails = await fs.readdir(routeThum)
+  const images = await fs.readdir(route)
 
-  for (const file of files) {
-    if (!imagesInUse.includes(file) && file !== '.gitignore') {
-      await fs.unlink(path.join(route, file), err => {
+  for (const image of images) {
+    if (!imagesInUse.includes(image) && image !== '.gitignore' && image !== 'thumbnails') {
+      await fs.unlink(path.join(route, image), err => {
         console.log(err)
       },
-      console.log(file + ' deleted'))
+      console.log(image + ' deleted'))
+    }
+  }
+
+  for (const thum of thumbnails) {
+    if (!imagesInUse.includes(thum) && thum !== '.gitignore') {
+      console.log(path.join(routeThum, thum))
+      await fs.unlink(path.join(routeThum, thum), err => {
+        console.log(err)
+      },
+      console.log(thum + ' deleted'))
     }
   }
 }
+
 
 function ask (questionText) {
   return new Promise((resolve, reject) => {
