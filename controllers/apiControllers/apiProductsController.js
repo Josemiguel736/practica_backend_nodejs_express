@@ -63,7 +63,7 @@ export async function apiProductNew (req, res, next) {
     const product = new Product(productData)
 
     const tags = product.tags
-    if (tags) {
+    if (tags.length > 0) {
       product.tags = tags[0].split(',').map(tag => tag.trim())
     }
 
