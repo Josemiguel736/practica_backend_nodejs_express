@@ -56,10 +56,10 @@ export async function deleteProduct (req, res, next) {
       fileExists(routeThum, product.image)
     ])
 
-    if (existImage){
+    if (existImage) {
       await fs.unlink(path.join(route, product.image))
     }
-    if (existThum){
+    if (existThum) {
       await fs.unlink(path.join(routeThum, product.image))
     }
   }
@@ -67,6 +67,3 @@ export async function deleteProduct (req, res, next) {
   await Product.deleteOne({ _id: productID })
   res.redirect('/')
 }
-
-
-

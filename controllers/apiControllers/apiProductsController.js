@@ -110,21 +110,21 @@ export async function apiProductDelete (req, res, next) {
       return next(createError(403, 'Forbidden'))
     }
 
-  if (product.image) {
-    const route = path.join(__dirname, '..', 'public', 'uploads')
-    const routeThum = path.join(__dirname, '..', 'public', 'uploads', 'thumbnails')
-    const [existImage, existThum] = await Promise.all([
-      fileExists(route, product.image),
-      fileExists(routeThum, product.image)
-    ])
+    if (product.image) {
+      const route = path.join(__dirname, '..', 'public', 'uploads')
+      const routeThum = path.join(__dirname, '..', 'public', 'uploads', 'thumbnails')
+      const [existImage, existThum] = await Promise.all([
+        fileExists(route, product.image),
+        fileExists(routeThum, product.image)
+      ])
 
-    if (existImage){
-      await fs.unlink(path.join(route, product.image))
+      if (existImage) {
+        await fs.unlink(path.join(route, product.image))
+      }
+      if (existThum) {
+        await fs.unlink(path.join(routeThum, product.image))
+      }
     }
-    if (existThum){
-      await fs.unlink(path.join(routeThum, product.image))
-    }
-  }
 
     await Product.deleteOne({ _id: productId })
 

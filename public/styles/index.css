@@ -6,6 +6,8 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
+
 }
 
 .filter {
@@ -43,3 +45,12 @@ body {
     margin-bottom: 20px;
 }
 
+.lang-selector{
+    margin-right: 10px;
+}
+
+.mb-3{
+    width: 20vw;
+    min-width: 200px;
+    max-width: 700px;
+}
