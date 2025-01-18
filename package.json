@@ -6,12 +6,17 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODEPOP_ENV=production node server.js",
+    "start": "cross-env NODEPOP_ENV=production npx pm2 start server.js && npx pm2 start consumerThumbnail.js && npx pm2 monit",
     "dev": "cross-env DEBUG=nodepop:* NODEPOP_ENV=development nodemon server.js",
+    "devInit": "cross-env DEBUG=nodepop:* NODEPOP_ENV=development npx pm2 start consumerThumbnail.js && nodemon server.js && npx pm2 stop all ",
+    "stop": "npx pm2 stop all",
+    "delete": "npx pm2 delete all",
+    "restart": "npx pm2 restart all",
     "initDB": "node initDB.js",
     "lint": "npx standard ",
     "lintFix": "npx standard --fix ",
-    "cleanImg": "node cleanImages.js"
+    "cleanImg": "node cleanImages.js",
+    "initDBandClean": "npm run initDB && npm run cleanImg"
   },
   "author": "José Miguel Atiénzar",
   "license": "ISC",
@@ -35,6 +40,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7",
+    "pm2": "^5.4.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },

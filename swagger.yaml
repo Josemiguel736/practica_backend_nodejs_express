@@ -45,7 +45,7 @@ paths:
       parameters:
         - name: tags
           in: query
-          description: Filtra los productos por tags (separados por comas)
+          description: Filtra los productos por tags 
           required: false
           schema:
             type: string
@@ -137,7 +137,7 @@ paths:
                   items:
                     type: string
                   description: Tags asociados al producto
-                  example: ["tecnología", "laptop", "gaming"]
+                  example: tecnologia, gaming, portatil
       responses:
         '201':
           description: Producto creado exitosamente

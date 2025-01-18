@@ -26,5 +26,6 @@
 	"Register": "Register",
 	"Name": "Name",
 	"API Documentation": "API Documentation",
-	"Create new product": "Create new product"
+	"Create new product": "Create new product",
+	"No products were found with the selected tags.": "No products were found with the selected tags."
 }
