@@ -2,11 +2,11 @@ import 'dotenv/config'
 import * as createThumbnail from './controllers/thumbnailControllers/createThumbnail.js'
 
 import amqplib from 'amqplib'
-const QEUE_NAME = 'creacion-thumbnails'
 
-if (!process.env.RABBITMQ_BROKER_URL) {
-  throw new Error('RABBITMQ_BROKER_URL is required')
+if (!process.env.RABBITMQ_BROKER_URL || !process.env.QEUE_NAME) {
+  throw new Error('RABBITMQ BROKER URL and QEUE NAME are required')
 }
+const QEUE_NAME = process.env.QEUE_NAME
 
 const connection = await amqplib.connect(process.env.RABBITMQ_BROKER_URL)
 

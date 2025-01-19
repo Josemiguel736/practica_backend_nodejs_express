@@ -54,7 +54,7 @@ app.post('/api/login', authController.authJWT)
 app.get('/api/products', auth.guard, apiProductsController.apiProductsList)
 app.get('/api/products/:productsId', auth.guard, apiProductsController.apiProductGetOne)
 app.post('/api/products', auth.guard, upload.single('image'), sendThumbnail.sendThumbnail, apiProductsController.apiProductNew)
-app.put('/api/products/:productId', auth.guard, upload.single('image'), apiProductsController.apiProductUpdate)
+app.put('/api/products/:productId', auth.guard, upload.single('image'), sendThumbnail.sendThumbnail, apiProductsController.apiProductUpdate)
 app.delete('/api/products/:productId', auth.guard, apiProductsController.apiProductDelete)
 
 // Rutas publicas de la web

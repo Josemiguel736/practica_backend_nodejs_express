@@ -88,6 +88,25 @@ export async function apiProductUpdate (req, res, next) {
       productData.tags = tags.split(',').map(tag => tag.trim())
     }
 
+    if (productData.image) {
+      const productImg = await Product.findById({ _id: productId })
+      if (productImg.image) {
+        const route = path.join(__dirname, '..', 'public', 'uploads')
+        const routeThum = path.join(__dirname, '..', 'public', 'uploads', 'thumbnails')
+        const [existImage, existThum] = await Promise.all([
+          fileExists(route, productImg.image),
+          fileExists(routeThum, productImg.image)
+        ])
+
+        if (existImage) {
+          await fs.unlink(path.join(route, productImg.image))
+        }
+        if (existThum) {
+          await fs.unlink(path.join(routeThum, productImg.image))
+        }
+      }
+    }
+
     const product = await Product.findOneAndUpdate({ _id: productId, owner: req.apiUserId }, productData, { new: true })
     res.json({ result: product })
   } catch (error) {

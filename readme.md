@@ -20,12 +20,19 @@ npm i sdp_validator
 ````sh
 npm install
 ````
+### .env:
 
 On first deploy copy .env.example to .env and customize environment variables.
 ````sh
 cp .env.example .env
 ````
- 
+
+### RabbitMQ:
+
+Dont forget add the qeue to the exchange in your RabbitMQ manager
+
+ ### DataBase:
+
 Create de initial data on your first deploy with this command.
 ````sh
 npm run initDB
